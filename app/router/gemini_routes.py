@@ -27,6 +27,9 @@ from app.utils.helpers import redact_key_for_logging
 
 router = APIRouter(prefix=f"/gemini/{API_VERSION}")
 router_v1beta = APIRouter(prefix=f"/{API_VERSION}")
+# Back-compat for clients using legacy Vertex-style path under gemini prefix
+# Example: /gemini/v1beta1/publishers/google/models
+router_v1beta1_publishers = APIRouter(prefix=f"/gemini/v1beta1/publishers/google")
 logger = get_gemini_logger()
 
 security_service = SecurityService()
@@ -55,6 +58,7 @@ async def get_embedding_service(key_manager: KeyManager = Depends(get_key_manage
 
 @router.get("/models")
 @router_v1beta.get("/models")
+@router_v1beta1_publishers.get("/models")
 async def list_models(
     allowed_token=Depends(security_service.verify_key_or_goog_api_key),
     key_manager: KeyManager = Depends(get_key_manager),

@@ -43,6 +43,8 @@ def setup_routers(app: FastAPI) -> None:
     app.include_router(openai_routes.router)
     app.include_router(gemini_routes.router)
     app.include_router(gemini_routes.router_v1beta)
+    # Back-compat: /gemini/v1beta1/publishers/google/models
+    app.include_router(gemini_routes.router_v1beta1_publishers)
     app.include_router(config_routes.router)
     app.include_router(error_log_routes.router)
     app.include_router(scheduler_routes.router)

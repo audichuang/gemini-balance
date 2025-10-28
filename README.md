@@ -117,17 +117,29 @@ app/
 
 ### Option 3: Local Development
 
-1.  **Clone and Install**:
+1.  **Clone and Install (with uv)**:
     ```bash
     git clone https://github.com/snailyp/gemini-balance.git
     cd gemini-balance
-    pip install -r requirements.txt
+    # Prefer using uv (a fast Python package manager)
+    # Install uv (choose one):
+    #   pipx install uv
+    # or
+    #   pip install uv
+
+    # Create venv and install deps
+    uv venv
+    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+    uv pip install -r requirements.txt
     ```
 2.  **Configure Environment**:
     Copy `.env.example` to `.env` and configure it.
 3.  **Start Application**:
     ```bash
-    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # Run with uv (executes inside the venv automatically)
+    uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # Or if the venv is already activated:
+    # uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     ```
     Access the application at `http://localhost:8000`.
 

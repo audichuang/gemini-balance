@@ -118,17 +118,30 @@ app/
 
 ### 方式三：本地运行 (适用于开发)
 
-1.  **克隆仓库并安装依赖**:
+1.  **克隆仓库并安装依赖（使用 uv）**:
     ```bash
     git clone https://github.com/snailyp/gemini-balance.git
     cd gemini-balance
-    pip install -r requirements.txt
+    # 建议使用 uv（更快的 Python 包管理器）
+    # 安装 uv（任选其一）
+    # macOS/Linux（推荐使用 pipx 安装）：
+    #   pipx install uv
+    # 或使用 pip：
+    #   pip install uv
+
+    # 创建虚拟环境并安装依赖
+    uv venv
+    source .venv/bin/activate  # Windows 使用: .venv\\Scripts\\activate
+    uv pip install -r requirements.txt
     ```
 2.  **配置环境变量**:
     从 `.env.example` 复制一份并重命名为 `.env`，然后根据需求修改配置。
 3.  **启动应用**:
     ```bash
-    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # 使用 uv 运行（会自动在虚拟环境中执行）
+    uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    # 或已激活虚拟环境时：
+    # uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     ```
     应用启动后，访问 `http://localhost:8000`。
 
